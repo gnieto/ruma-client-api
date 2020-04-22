@@ -3,7 +3,7 @@
 use std::collections::BTreeMap;
 
 use ruma_api::ruma_api;
-use ruma_events::{collections::all, EventResult};
+use ruma_events::{collections::all, EventJson};
 use ruma_identifiers::UserId;
 
 use super::DeviceIdOrAllDevices;
@@ -28,8 +28,7 @@ ruma_api! {
         /// A map of users to devices to a message event to be sent to the user's
         /// device. Individual message events can be sent to devices, but all
         /// events must be of the same type.
-        #[wrap_incoming(all::Event with EventResult)]
-        pub messages: BTreeMap<UserId, BTreeMap<DeviceIdOrAllDevices, all::Event>>
+        pub messages: BTreeMap<UserId, BTreeMap<DeviceIdOrAllDevices, EventJson<all::Event>>>
     }
 
     response {}
